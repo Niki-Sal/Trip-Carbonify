@@ -47,16 +47,20 @@ app.use((req, res, next) => {
 app.use('/auth', require('./controllers/auth'));
 app.use('/users', require('./controllers/users'));
 app.use('/categories', require('./controllers/categories'));
-
+////////////////////////////////////////////
+//GET homepage-index
 app.get('/', (req, res) => {
   res.render('index');
 });
 
+//GET users profile
 app.get('/profile', isLoggedIn, (req, res) => {
   const { id, name, email } = req.user.get(); 
   res.render('profile', { id, name, email });
 });
 
+
+//////////////////////////////////////////
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
   console.log(`🎧 You're listening to the smooth sounds of port ${PORT} 🎧`);

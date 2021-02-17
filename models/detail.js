@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.detail.belongsTo(models.task)
     }
   };
   detail.init({
@@ -18,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     activityType: DataTypes.STRING,
     country: DataTypes.STRING,
     mode: DataTypes.STRING,
-    activityId: DataTypes.INTEGER
+    taskId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'detail',

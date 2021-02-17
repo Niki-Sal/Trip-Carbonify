@@ -3,11 +3,6 @@ const axios = require ('axios')
 const router = express.Router()
 const db = require('../models')
 
-// router.get('/',(req, res)=>{
-//     res.send('here other user will see user clicked')
-// })
-
-
 
 //POST information from user in public category pages to result page
 router.post('/result', (req, res)=>{
