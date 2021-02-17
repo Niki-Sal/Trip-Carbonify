@@ -23,7 +23,7 @@
 - I am able to click on other users profile through home page and see their activities' details and carbon footprint
 
 ## Database Setup
-![Image-5](./assets/diagram.jpeg)
+![Image-5](./assets/diagram-1.jpeg)
 
 
 ## Wireframe
