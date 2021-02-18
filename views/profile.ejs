@@ -6,8 +6,22 @@
 <p>Name: <%= name %></p>
 <p>Email: <%= email %></p>
 
-<a href = 'users/about'>Add more information about myself</a>
+<% if (thisUserinfo){ %>
+        <p>about me: <%= thisUserinfo.about %></p>
+        <img src="<%= thisUserinfo.photo %>" alt="user profile picture" style= " height: 200px; width: auto">
+        <a href = '/aboutedit'>edit my info</a>
+<% } else {%>
+        <a href = '/about'>Add more information about myself</a>
+<% } %>
 
+
+
+
+<% let totalScore = 0 %>
+<% for (let i=0; i < alluserTasks.length; i++ ){ %>
+     <% totalScore += parseInt( alluserTasks[i].carbon) %> 
+<% } %>
+<p>YOUR TOTAL CARBONFOOTPRINT: <%= totalScore %></p> 
 
 <h2>Your search history</h2>
 

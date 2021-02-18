@@ -5,7 +5,7 @@ const layouts = require('express-ejs-layouts');
 const session = require('express-session');
 const passport = require('./config/ppConfig'); //
 const flash = require('connect-flash');
-
+const methodOverride = require("method-override")
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -13,6 +13,10 @@ app.set('view engine', 'ejs');
 // Session 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 const isLoggedIn = require('./middleware/isLoggedIn');
+
+const multer = require('multer')
+const cloudinary = require('cloudinary')
+const uploads = multer({ dest: './uploads'})
 const db = require('./models');
 
 // MIDDLEWARE
@@ -20,6 +24,7 @@ app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(layouts);
+app.use(methodOverride("_method"))
 
 // Session Middleware
 
@@ -92,36 +97,76 @@ app.post('/result', (req, res)=>{
 app.get('/profile', isLoggedIn, async(req, res) => { 
   try{
     const { id, name, email } = req.user.get();
+    const thisUser = await db.user.findOne({
+      where:{
+        id: id
+      },
+      include: [{
+        model: db.userinfo,
+        as: 'userinfo'
+      }]
+    })
     const alluserTasks = await db.task.findAll({
       where:{
         userId:id
       },
       include: [db.category]
     })
-  res.render('profile', { id, name, email, alluserTasks})
+    const thisUserinfo = await db.userinfo.findOne({
+      where:{
+        userId: id
+      }
+    })
+  res.render('profile', { id, name, email, alluserTasks, thisUserinfo})
   }catch (err){
     console.log(err)
   }
 });
+app.get('/about' ,isLoggedIn, async(req, res)=>{
+  try{
+    const { id, name, email } = req.user.get();
+      const user = await db.user.findOne({
+          where:{
+             id: id 
+          }
+      })
+      res.render('about', {user})
+  } catch(err){
+    console.log(err)
+  }
+})
 
-// router.post('/about', isLoggedIn, async(req, res)=>{
-//   try{
-//       let about = req.body.about
-//       const { id, name, email } = req.user.get();
-//       const user = await db.user.find({
-//           where:{
-//              id: id 
-//           }
-//       })
-//       const userInfo = await db.userinfo.create({
-//           // photo:////////,
-//           about: about
-//       })
-//       await user.addUserinfo(userInfo)
-//       res.redirect ('/portfolio')
 
-//   }
-// })
+app.post('/about' , uploads.single('inputFile'), isLoggedIn, async(req, res)=>{
+  try{
+      let about = await req.body.about
+      const image = await req.file.path
+      const result = await cloudinary.uploader.upload(image)
+      const imageUrl = await result.url
+      const { id, name, email } = await req.user.get();
+      console.log(id)
+      console.log(name)
+      console.log(email)
+      console.log(about)
+      console.log(result)
+      console.log(result.url)
+  
+      const userinfoObject = {
+          photo: imageUrl,
+          about: about,
+          userId: id
+      }
+      console.log(userinfoObject)
+      const UserInfoPromise = await db.userinfo.create(
+         userinfoObject,
+         { where: {userId: id} }
+      )
+      
+      res.redirect ('/profile')
+  }catch (err){
+    console.log(err)
+  }
+})
 
 
 //////////////////////////////////////////

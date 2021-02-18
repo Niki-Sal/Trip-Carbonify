@@ -26,8 +26,10 @@ router.post('/signup', (req, res) => {
   // console.log(req.body);
   const { email, name, password } = req.body; // goes and us access to whatever key/value inside of the object (req.body)
   db.user.findOrCreate({
-    where: { email },
-    defaults: { name, password }
+    defaults: { name, password },
+    where: { email
+     }, include: [{model: db.userinfo, as: 'userinfo'}]
+    
   })
   .then(([user, created]) => {
     if (created) {
@@ -55,7 +57,7 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/users',
+  successRedirect: '/',
   failureRedirect: '/auth/login',
   successFlash: 'Welcome back ...',
   failureFlash: 'Either email or password is incorrect' 
