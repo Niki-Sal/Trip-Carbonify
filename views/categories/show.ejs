@@ -1,0 +1,12 @@
+<h3>Category <%= category.name %></h3>
+<h3>all activities in this category</h3>
+<% for (let i=0; i<alluserTasks.length; i++) { %>
+    <% if (alluserTasks[i].categories[0].name === category.name){ %>
+        <p><%= alluserTasks[i].title %></p>
+    <% } %>
+<% } %>
+
+
+<a href="/profile">&larr; Back to profile</a>
+
+

@@ -12,13 +12,9 @@
 <h2>Your search history</h2>
 
 <% for (let i=0; i < alluserTasks.length; i++ ){ %>
-        <p> <%= alluserTasks[i].title %> : <%= alluserTasks[i].carbon %> </p> 
+        <p> Task Title: <%= alluserTasks[i].title %> : <%= alluserTasks[i].carbon %> </p> 
+        <p>category:<a href='users/category/<%= alluserTasks[i].categories[0].name %>'> <%= alluserTasks[i].categories[0].name %></a></p>
         <a href='users/editTask'>Edit</a>
         <form action="users/delete"method="POST"><input type="submit"></form>
         
 <% } %>
-
-<p>See category of your Activities</p>
-<a href = '/category/driving'> Driving</a>
-<a href = '/category/publictransportation'> Public Transportation</a>
-<a href = '/category/flight'> Flight</a>

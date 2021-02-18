@@ -95,13 +95,33 @@ app.get('/profile', isLoggedIn, async(req, res) => {
     const alluserTasks = await db.task.findAll({
       where:{
         userId:id
-      }
+      },
+      include: [db.category]
     })
   res.render('profile', { id, name, email, alluserTasks})
   }catch (err){
     console.log(err)
   }
 });
+
+// router.post('/about', isLoggedIn, async(req, res)=>{
+//   try{
+//       let about = req.body.about
+//       const { id, name, email } = req.user.get();
+//       const user = await db.user.find({
+//           where:{
+//              id: id 
+//           }
+//       })
+//       const userInfo = await db.userinfo.create({
+//           // photo:////////,
+//           about: about
+//       })
+//       await user.addUserinfo(userInfo)
+//       res.redirect ('/portfolio')
+
+//   }
+// })
 
 
 //////////////////////////////////////////

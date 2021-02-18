@@ -42,6 +42,26 @@ router.get('/', (req, res) => {
     res.render('index');
   });
 
+router.get('/category/:catName',isLoggedIn, async(req, res)=>{
+    try{
+        const { id, name, email } = req.user.get();
+        const alluserTasks = await db.task.findAll({
+            where:{
+              userId:id
+            },
+            include: [db.category]
+          })
+        const category = await db.category.findOne({
+            where:{
+               name: req.params.catName
+            }
+        })
+        res.render('categories/show',{category, alluserTasks})
+
+    } catch (err){
+        console.log(err)
+    } 
+})
 
 //GET information and show result page for loggin user
 router.get('/result/:category/:title',isLoggedIn, async(req, res)=>{
@@ -72,7 +92,7 @@ router.get('/result/:category/:title',isLoggedIn, async(req, res)=>{
     }
 })
 
-///////////////inja
+
 
 //POST information and add to database form loggin user
 router.post('/result/:category',isLoggedIn, async(req, res)=>{
