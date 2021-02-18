@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   task.init({
     title: DataTypes.STRING,
+    carbon: DataTypes.INTEGER,
     userId: DataTypes.INTEGER
   }, {
     sequelize,

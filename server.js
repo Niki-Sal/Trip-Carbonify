@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const axios = require ('axios')
 const layouts = require('express-ejs-layouts');
 const session = require('express-session');
 const passport = require('./config/ppConfig'); //
@@ -12,6 +13,7 @@ app.set('view engine', 'ejs');
 // Session 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 const isLoggedIn = require('./middleware/isLoggedIn');
+const db = require('./models');
 
 // MIDDLEWARE
 app.use(require('morgan')('dev'));
@@ -53,10 +55,52 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+//POST and render temporary information from NOT loggedin user in public category pages to result page
+app.post('/result', (req, res)=>{
+  let title = req.params.category
+  let activity = req.body.activity
+  let activityType = req.body.activityType
+  let country = req.body.country
+  let mode = req.body.mode
+  let fuelType = req.body.fuelType
+
+  let APIResponse = `https://api.triptocarbon.xyz/v1/footprint?activity=${activity}&activityType=${activityType}&fuelType=${fuelType}&country=${country}&mode=${mode}`
+  console.log(APIResponse)
+  axios.get(APIResponse)
+  .then(function(response){
+      console.log(response.data)
+      let result = response.data
+      res.render('result', {result})
+  })
+  .catch(function(error){
+      console.log('******this is API error*******')
+      console.log(error)
+  })
+})
+
 //GET users profile
-app.get('/profile', isLoggedIn, (req, res) => {
-  const { id, name, email } = req.user.get(); 
-  res.render('profile', { id, name, email });
+// app.get('/profile', isLoggedIn, (req, res) => {
+//   const { id, name, email } = req.user.get(); 
+//   res.render('profile', { id, name, email });
+// });
+
+// app.get('/profile', isLoggedIn, (req, res) => {
+//   const { id, name, email } = req.user.get(); 
+//   res.render('profile', { id, name, email });
+// });
+
+app.get('/profile', isLoggedIn, async(req, res) => { 
+  try{
+    const { id, name, email } = req.user.get();
+    const alluserTasks = await db.task.findAll({
+      where:{
+        userId:id
+      }
+    })
+  res.render('profile', { id, name, email, alluserTasks})
+  }catch (err){
+    console.log(err)
+  }
 });
 
 

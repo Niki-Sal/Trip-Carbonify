@@ -2,6 +2,23 @@
 
 <h3>Welcome to your PROFILE</h3>
 
-<p>Id: <%= id %></p>
+<!-- <p>Id: <%= id %></p> -->
 <p>Name: <%= name %></p>
 <p>Email: <%= email %></p>
+
+<a href = 'users/about'>Add more information about myself</a>
+
+
+<h2>Your search history</h2>
+
+<% for (let i=0; i < alluserTasks.length; i++ ){ %>
+        <p> <%= alluserTasks[i].title %> : <%= alluserTasks[i].carbon %> </p> 
+        <a href='users/editTask'>Edit</a>
+        <form action="users/delete"method="POST"><input type="submit"></form>
+        
+<% } %>
+
+<p>See category of your Activities</p>
+<a href = '/category/driving'> Driving</a>
+<a href = '/category/publictransportation'> Public Transportation</a>
+<a href = '/category/flight'> Flight</a>

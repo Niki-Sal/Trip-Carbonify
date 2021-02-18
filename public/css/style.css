@@ -3,13 +3,18 @@ nav ul li {
   display: inline-block;
   margin-right: .3em;
 }
-nav{
-  background-color: gray;
+footer ul li {
+  text-decoration: none;
+  display: inline-block;
+  margin-right: .3em;
+}
+nav, footer{
+  background-color: rgb(141, 129, 129);
   padding: 3px;
 }
 
 h1 {
-  color: rgb(112, 112, 112);
+  color: rgb(141, 129, 129);
   text-align: center;
 }
 #category-container{
