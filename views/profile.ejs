@@ -2,14 +2,14 @@
 
 <h3>Welcome to your PROFILE</h3>
 
-<!-- <p>Id: <%= id %></p> -->
+<p>Id: <%= id %></p>
 <p>Name: <%= name %></p>
 <p>Email: <%= email %></p>
 
 <% if (thisUserinfo){ %>
         <p>about me: <%= thisUserinfo.about %></p>
         <img src="<%= thisUserinfo.photo %>" alt="user profile picture" style= " height: 200px; width: auto">
-        <a href = '/aboutedit'>edit my info</a>
+        <a href = '/profile/editAbout/<%= thisUserinfo.id %>'>edit my info</a>
 <% } else {%>
         <a href = '/about'>Add more information about myself</a>
 <% } %>

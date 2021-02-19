@@ -1,12 +1,17 @@
+
 const express = require ('express')
 const axios = require ('axios')
 const router = express.Router()
 const db = require('../models')
 const layouts = require('express-ejs-layouts');
+//session
 const session = require('express-session');
+//Passport
 const passport = require('../config/ppConfig');
+//Flash
 const flash = require('connect-flash');
-// //what is it?
+const methodOverride = require("method-override")
+// //what is it?//
 // const { deserializeUser } = require('passport')
 
 // Session 
@@ -17,6 +22,7 @@ router.use(require('morgan')('dev'));
 router.use(express.urlencoded({ extended: false }));
 router.use(express.static(__dirname + '/public'));
 router.use(layouts);
+router.use(methodOverride("_method"))
 
 // Session Middleware
 const sessionObject = {
@@ -25,10 +31,11 @@ const sessionObject = {
     saveUninitialized: true
   }
 router.use(session(sessionObject));
-// Passport
+
+// Passport Middleware
 router.use(passport.initialize()); // Initialize passport
 router.use(passport.session()); // Add a session
-// Flash 
+// Flash Middleware
 router.use(flash());
 router.use((req, res, next) => {
   console.log(res.locals);
@@ -36,7 +43,7 @@ router.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
-////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 //GET home page for logged in user
 router.get('/', (req, res) => {
     res.render('index');

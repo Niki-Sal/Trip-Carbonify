@@ -1,7 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require ('axios')
+const db = require('./models');
 const layouts = require('express-ejs-layouts');
+//session
 const session = require('express-session');
 //Passport
 const passport = require('./config/ppConfig');
@@ -18,7 +20,9 @@ const isLoggedIn = require('./middleware/isLoggedIn');
 const multer = require('multer')
 const cloudinary = require('cloudinary')
 const uploads = multer({ dest: './uploads'})
-const db = require('./models');
+
+
+//Why do I need that? do I need one for categories?
 const router = require('./controllers/users');
 
 // MIDDLEWARE
@@ -53,7 +57,7 @@ app.use('/users', require('./controllers/users'));
 app.use('/categories', require('./controllers/categories'));
 
 
-////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 //GET homepage-index
 app.get('/', (req, res) => {
   res.render('index');
@@ -125,7 +129,22 @@ app.get('/about' ,isLoggedIn, async(req, res)=>{
     console.log(err)
   }
 })
-
+//GET a page for editing userinfo
+app.get('/profile/editAbout/:idx' , isLoggedIn, async(req, res) =>{
+  try{
+    let idx = req.params.idx
+    const { id, name, email } = req.user.get();
+    const thisUser = await db.user.findOne({
+      where:{id: id}
+    })
+    const infoToUpdate = await db.userinfo.findOne({
+      where:{id: idx}
+    }) 
+    res.render ('moreInfoEdit',{infoToUpdate})
+  }catch (err){
+    console.log(err)
+  } 
+})
 //GET a page for editing activity titles
 app.get('/profile/editTask/:idx', isLoggedIn, async(req, res)=>{
   try{
@@ -174,6 +193,32 @@ app.post('/about' , uploads.single('inputFile'), isLoggedIn, async(req, res)=>{
   }catch (err){
     console.log(err)
   }
+})
+//EDIT user moreinfo through '/profile/aboutedit'
+app.put('/profile/editAbout/:idx' ,uploads.single('inputFile'), isLoggedIn, async(req, res, next)=>{
+  try{
+    const image = await req.file.path
+    const result = await cloudinary.uploader.upload(image)
+    const newPhoto = await result.url
+
+    let newAbout = await req.body.about
+    let idx = await req.params.idx
+
+  const { id, name, email } = await req.user.get();
+    const thisUser = await db.user.findOne({
+      where:{id: id}
+    })
+    const updateduserinfo = await db.userinfo.update(
+      {
+        photo: newPhoto,
+        about: newAbout
+      },
+      {returning: true,where:{ id:idx }},
+  )
+  res.redirect('/profile')
+  }catch (next){
+    console.log(next)
+  }  
 })
 
 //EDIT activity titles in profile
