@@ -3,21 +3,23 @@ const express = require('express');
 const axios = require ('axios')
 const layouts = require('express-ejs-layouts');
 const session = require('express-session');
-const passport = require('./config/ppConfig'); //
+//Passport
+const passport = require('./config/ppConfig');
+//Flash
 const flash = require('connect-flash');
 const methodOverride = require("method-override")
-
 const app = express();
 app.set('view engine', 'ejs');
 
 // Session 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 const isLoggedIn = require('./middleware/isLoggedIn');
-
+//Multer & Cloudinary
 const multer = require('multer')
 const cloudinary = require('cloudinary')
 const uploads = multer({ dest: './uploads'})
 const db = require('./models');
+const router = require('./controllers/users');
 
 // MIDDLEWARE
 app.use(require('morgan')('dev'));
@@ -27,21 +29,16 @@ app.use(layouts);
 app.use(methodOverride("_method"))
 
 // Session Middleware
-
-// secret: What we actually will be giving the user on our site as a session cookie
-// resave: Save the session even if it's modified, make this false
-// saveUninitialized: If we have a new session, we save it, therefore making that true
-
 const sessionObject = {
   secret: SECRET_SESSION,
   resave: false,
   saveUninitialized: true
 }
 app.use(session(sessionObject));
-// Passport
+// Passport Middleware
 app.use(passport.initialize()); // Initialize passport
 app.use(passport.session()); // Add a session
-// Flash 
+// Flash Middleware
 app.use(flash());
 app.use((req, res, next) => {
   console.log(res.locals);
@@ -54,6 +51,8 @@ app.use((req, res, next) => {
 app.use('/auth', require('./controllers/auth'));
 app.use('/users', require('./controllers/users'));
 app.use('/categories', require('./controllers/categories'));
+
+
 ////////////////////////////////////////////
 //GET homepage-index
 app.get('/', (req, res) => {
@@ -84,15 +83,6 @@ app.post('/result', (req, res)=>{
 })
 
 //GET users profile
-// app.get('/profile', isLoggedIn, (req, res) => {
-//   const { id, name, email } = req.user.get(); 
-//   res.render('profile', { id, name, email });
-// });
-
-// app.get('/profile', isLoggedIn, (req, res) => {
-//   const { id, name, email } = req.user.get(); 
-//   res.render('profile', { id, name, email });
-// });
 
 app.get('/profile', isLoggedIn, async(req, res) => { 
   try{
@@ -136,7 +126,25 @@ app.get('/about' ,isLoggedIn, async(req, res)=>{
   }
 })
 
+//GET a page for editing activity titles
+app.get('/profile/editTask/:idx', isLoggedIn, async(req, res)=>{
+  try{
+    let idx = req.params.idx
+    const { id, name, email } = req.user.get();
+    const thisUser = await db.user.findOne({
+      where:{id: id}
+    })
+    const tasktoUpdate = await db.task.findOne({
+      where:{id: idx}
+    }) 
+    console.log(tasktoUpdate)
+    res.render ('edit',{tasktoUpdate})
+  }catch (err){
+    console.log(err)
+  }  
+})
 
+//POST more info about user in user profile
 app.post('/about' , uploads.single('inputFile'), isLoggedIn, async(req, res)=>{
   try{
       let about = await req.body.about
@@ -166,6 +174,43 @@ app.post('/about' , uploads.single('inputFile'), isLoggedIn, async(req, res)=>{
   }catch (err){
     console.log(err)
   }
+})
+
+//EDIT activity titles in profile
+app.put('/profile/editTask/:idx', isLoggedIn, async(req, res, next)=>{
+  try{
+    let title = req.body.title
+    let idx = req.params.idx
+    const { id, name, email } = req.user.get();
+    const thisUser = await db.user.findOne({
+      where:{id: id}
+    })
+    const updatedTask = await db.task.update(
+      {title: title},
+      {returning: true,where:{ id:idx }},
+  )
+  res.redirect('/profile')
+  }catch (next){
+    console.log(next)
+  }  
+})
+
+//DELETE activities in profile
+app.delete('/profile/:idx', isLoggedIn, async( req, res)=>{
+  try{
+    
+    let idx = req.params.idx
+    const { id, name, email } = req.user.get();
+    const thisUser = await db.user.findOne({
+      where:{id: id}
+    })
+    const deletedTask = await db.task.destroy({
+      where:{id: idx}
+    })
+  res.redirect('/profile')
+  }catch (next){
+    console.log(next)
+  }  
 })
 
 

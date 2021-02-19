@@ -28,7 +28,10 @@
 <% for (let i=0; i < alluserTasks.length; i++ ){ %>
         <p> Task Title: <%= alluserTasks[i].title %> : <%= alluserTasks[i].carbon %> </p> 
         <p>category:<a href='users/category/<%= alluserTasks[i].categories[0].name %>'> <%= alluserTasks[i].categories[0].name %></a></p>
-        <a href='users/editTask'>Edit</a>
-        <form action="users/delete"method="POST"><input type="submit"></form>
+        
+        <a href='/profile/editTask/<%= alluserTasks[i].id %>'>Edit</a>
+        <form method="POST" action="/profile/<%= alluserTasks[i].id %>?_method=DELETE">
+                <input type="submit" value= "Delete">
+        </form>
         
 <% } %>
