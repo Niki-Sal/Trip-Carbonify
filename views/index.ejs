@@ -1,37 +1,39 @@
 
 <% if (!currentUser) { %>
-    <p> join us to save planet </p>
+    <p id="text-1"> JOIN US! Let's be gentle to the earth by living lesser carbon footprint  </p>
 <% } else { %>
-    <p> Hi <%= currentUser.name %></p>
+    <p id="text-2"> Hi <%= currentUser.name %>!</p>
 <% } %>
 
 <div id="category-container">   
-    <div>
+    <div class="each-category">
         <a href="categories/driving">Driving</a>
-        <img src="../assets/driving.jpg" alt="driving" style="height: 200px; width:auto">
+        <a href="categories/driving"><img src="../assets/driving.jpg" alt="driving" style="height: 200px; width:auto"></a>
     </div> 
-    <div>
+    <div class="each-category">
         <a href="categories/publictransportation"> Public Transportation</a>
-        <img src="../assets/publictransportation.jpg" alt="public transportation" style="height: 200px; width:auto">
+        <a href="categories/publictransportation"><img src="../assets/publictransportation.jpg" alt="public transportation" style="height: 200px; width:auto"></a>
     </div> 
-    <div>
+    <div class="each-category">
         <a href="categories/flight">Flight</a>
-        <img src="../assets/flight.jpg" alt="flight" style="height: 200px; width:auto">
+        <a href="categories/flight"><img src="../assets/flight.jpg" alt="flight" style="height: 200px; width:auto"></a>
     </div>   
 </div>
-<div>
-    <img src="../assets/ad-1.jpeg" alt="change" style="height: 300px; width:auto">
-    <img src="../assets/ad-2.jpeg" alt="change" style="height: 300px; width:auto">
-    <img src="../assets/ad-3.jpeg" alt="change" style="height: 300px; width:auto">
+<div id="photo-container">
+    <img class="ad-photo" src="../assets/ad-1.jpeg" alt="change" >
+    <img class="ad-photo" src="../assets/ad-2.jpeg" alt="change" >
+    <img class="ad-photo" src="../assets/ad-3.jpeg" alt="change" >
 </div>
 
 
 
 <% if (!currentUser) { %>
-    <p> join to contact to others</p>
+    <p id="text-1"> JOIN US! to see other people's activities</p>
 <% } else { %>
-    <p> See activities of other people in community</p>
+    <div id="members-container">
+    <p id="text-2"> See activities of other people in community</p>
     <% for (let i=0; i < users.length; i++){ %>
-        <a href='/otherProfiles/<%=users[i].id %>'><%= users[i].name %></p>
+        <a  id= "members" href='/otherProfiles/<%=users[i].id %>'><%= users[i].name %></p>
     <% } %>
+    </div>
 <% } %>
