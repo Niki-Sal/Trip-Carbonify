@@ -152,3 +152,33 @@ h1 {
 }
 
 /* user profile */
+.profile-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.profile-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#profile-image{
+  height: 200px;
+  width: 200px;
+  border: 5px solid gray;
+  border-radius: 30px;
+  margin: 20px;
+}
+#edit-link{
+  text-align: center;
+  padding-bottom: 30px;
+  text-decoration: none;
+  color: gray;
+}
+#edit-link:hover{
+  color: green;
+}
+.profile-title{
+  font-weight: bold;
+  color: green;
+}
