@@ -1,4 +1,10 @@
 
+<% if (!currentUser) { %>
+    <p> join us to save planet </p>
+<% } else { %>
+    <p> Hi <%= currentUser.name %></p>
+<% } %>
+
 <div id="category-container">   
     <div>
         <a href="categories/driving">Driving</a>
@@ -20,3 +26,12 @@
 </div>
 
 
+
+<% if (!currentUser) { %>
+    <p> join to contact to others</p>
+<% } else { %>
+    <p> See activities of other people in community</p>
+    <% for (let i=0; i < users.length; i++){ %>
+        <a href='/otherProfiles/<%=users[i].id %>'><%= users[i].name %></p>
+    <% } %>
+<% } %>

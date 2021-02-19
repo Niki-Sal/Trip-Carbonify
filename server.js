@@ -60,9 +60,50 @@ app.use('/categories', require('./controllers/categories'));
 //////////////////////////////////////////////////////////////
 //GET homepage-index
 app.get('/', (req, res) => {
-  res.render('index');
+    db.user.findAll().then(users => res.render('index', {users}))  
+})
+//GET other people's profile
+app.get('/otherProfiles/:idx', async(req, res) => { 
+  try{
+    let idx =req.params.idx
+    const thisUser = await db.user.findOne({
+      where:{
+        id: idx
+      },
+      include: [{
+        model: db.userinfo,
+        as: 'userinfo'
+      }]
+    })
+    const alluserTasks = await db.task.findAll({
+      where:{
+        userId:idx
+      },
+      include: [db.category]
+    })
+    const thisUserinfo = await db.userinfo.findOne({
+      where:{
+        userId: idx
+      }
+    })
+  res.render('othersProfile', { thisUser, alluserTasks, thisUserinfo})
+  }catch (err){
+    console.log(err)
+  }
 });
-
+app.get('/about' ,isLoggedIn, async(req, res)=>{
+  try{
+    const { id, name, email } = req.user.get();
+      const user = await db.user.findOne({
+          where:{
+             id: id 
+          }
+      })
+      res.render('about', {user})
+  } catch(err){
+    console.log(err)
+  }
+})
 //POST and render temporary information from NOT loggedin user in public category pages to result page
 app.post('/result', (req, res)=>{
   let title = req.params.category
