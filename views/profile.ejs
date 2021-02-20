@@ -27,7 +27,7 @@
 <% for (let i=0; i < alluserTasks.length; i++ ){ %>
      <% totalScore += parseInt( alluserTasks[i].carbon) %> 
 <% } %>
-<h2 id="text-1">Your Total CarbonFootprint: <%= totalScore %></h2> 
+<h2 id="text-1">Your Total Carbon Footprint: <%= totalScore %> kg | <%= Math.floor(totalScore* 2.2) %> lbs </h2> 
 
 <h5 style="text-align:center;">Search History</h5 >
 
@@ -38,11 +38,11 @@
                                 <a class="green" href='users/result/<%= alluserTasks[i].categories[0].name %>/<%= alluserTasks[i].title %>'> <%= alluserTasks[i].title %> </a> | <a class="green" href='/profile/editTask/<%= alluserTasks[i].id %>'>Edit</a>
                         </div>
                 
-                        <p>Carbon Footprint Amount: <%= alluserTasks[i].carbon %> kg </p> 
+                        <p>Carbon Footprint Amount: <%= alluserTasks[i].carbon %> kg | <%= Math.floor(parseInt(alluserTasks[i].carbon)*(2.2)) %> lbs </p> 
                         
                 </div>
                 <div id="history-category">
-                        <p>Category:<a class="green" href='users/category/<%= alluserTasks[i].categories[0].name %>'> <%= alluserTasks[i].categories[0].name %></a></p>
+                        <p>Category:<a class="green" href='users/category/<%= alluserTasks[i].categories[0].name %>'> <%= alluserTasks[i].categories[0].name %> </a></p>
                         <form method="POST" action="/profile/<%= alluserTasks[i].id %>?_method=DELETE">
                                 <input type="submit" value= "Delete">
                         </form>

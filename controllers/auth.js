@@ -15,7 +15,7 @@ router.get('/login', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.logOut(); // logs the user out of the session
-  req.flash('success', 'Logging out... See you next time!');
+  req.flash('success', 'Logging out, See you Later!');
   res.redirect('/');
 });
 
@@ -38,7 +38,7 @@ router.post('/signup', (req, res) => {
       // flash messages
       const successObject = {
         successRedirect: '/',
-        successFlash: `Welcome ${user.name}. Account was created and logging in...`
+        successFlash: `Welcome ${user.name}. Account was created`
       }
       // passport authenicate
       passport.authenticate('local', successObject)(req, res);

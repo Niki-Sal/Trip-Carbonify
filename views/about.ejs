@@ -1,9 +1,13 @@
-<p><%=user.name %></p>
 
-<form action="/about" method="POST" enctype="multipart/form-data">
-    <label for="about">About Me</label>
-    <input type="text" name="about" value="about">
-    <label for="inputFile">My Profile Picture</label>
-    <input type="file" name="inputFile" id="inputFile" value ="inputFile">
-    <button type="submit">submit</button>
-</form>
+<div class= "form-container">
+    <form class= "sign-form" action="/about" method="POST" enctype="multipart/form-data">
+        <label for="about">About Me</label>
+        <textarea  name="about" id="about" rows='5' cols='30'></textarea>
+
+        <label for="inputFile">My Profile Picture</label>
+        <input type="file" name="inputFile" id="inputFile" value ="inputFile">
+        <button type="submit">submit</button>
+    </form>
+
+</div>
+

@@ -21,10 +21,10 @@
 </div>
 <p id="text-1">EVENTS</p>
 <div id="photo-container">
-    <img class="ad-photo" src="../assets/ad-1.jpeg" alt="change" >
-    <img class="ad-photo" src="../assets/ad-2.jpeg" alt="change" >
-    <img class="ad-photo" src="../assets/ad-3.jpeg" alt="change" >
-    <img class="ad-photo" src="../assets/ad-2.jpeg" alt="change" >
+    <a href="https://www.worldenvironmentday.global/"><img class="ad-photo" src="../assets/ad-1.jpeg" alt="change" ></a>
+    <a href="https://www.worldenvironmentday.global/"><img class="ad-photo" src="../assets/ad-2.jpeg" alt="change" ></a>
+    <a href="https://www.worldenvironmentday.global/"><img class="ad-photo" src="../assets/ad-3.jpeg" alt="change" ></a>
+    <a href="https://www.worldenvironmentday.global/"><img class="ad-photo" src="../assets/ad-2.jpeg" alt="change" ></a>
 </div>
 
 
@@ -34,7 +34,9 @@
     <div id="members-container">
     <p id="text-3"> See activities of other people in community</p>
     <% for (let i=0; i < users.length; i++){ %>
-        <a  id= "members" href='/otherProfiles/<%=users[i].id %>'><%= users[i].name %></p>
+        <% if (users[i].name !== currentUser.name){ %>
+            <a  id= "members" href='/otherProfiles/<%=users[i].id %>'><i class="fas fa-user"></i><%= users[i].name %></a>
+        <% } %>
     <% } %>
     </div>
 <% } %>

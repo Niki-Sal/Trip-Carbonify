@@ -11,15 +11,14 @@
     <% if (thisUserinfo){ %>
         
             <p><span class= "profile-title"> About Me | </span> <%= thisUserinfo.about %></p>
-        </div>
-        <div class=" profile-item">
+    </div>
+    <div class=" profile-item">
             <img id="profile-image" src="<%= thisUserinfo.photo %>" alt="user profile picture" >
-        </div>
-       
+    
     <% } else {%>
         <p>No information about this user</p>
     <% } %>
-
+    </div>
 </div>
 
 

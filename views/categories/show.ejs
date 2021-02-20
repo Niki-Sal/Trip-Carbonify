@@ -6,7 +6,7 @@
         <% if (alluserTasks[i].categories[0].name === category.name){ %>
             <div id ="history-title">
                 <p><%= alluserTasks[i].title %> | <a class="green" href='/profile/editTask/<%= alluserTasks[i].id %>'>Edit</a></p>
-                <p>Carbon Footprint Amount: <%= alluserTasks[i].carbon %> kg </p> 
+                <p>Carbon Footprint Amount: <%= alluserTasks[i].carbon %> kg | <%= Math.floor(parseInt(alluserTasks[i].carbon)*(2.2)) %> lbs</p> 
             </div> 
         <% } %>
     </div>
