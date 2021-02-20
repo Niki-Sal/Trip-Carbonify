@@ -1,12 +1,19 @@
-<h3>Category <%= category.name %></h3>
-<h3>all activities in this category</h3>
+<h2 id="text-1">All your activities related to <%= category.name %></h2>
+
+    
 <% for (let i=0; i<alluserTasks.length; i++) { %>
-    <% if (alluserTasks[i].categories[0].name === category.name){ %>
-        <p><%= alluserTasks[i].title %></p>
-    <% } %>
+    <div id="history-container">
+        <% if (alluserTasks[i].categories[0].name === category.name){ %>
+            <div id ="history-title">
+                <p><%= alluserTasks[i].title %> | <a class="green" href='/profile/editTask/<%= alluserTasks[i].id %>'>Edit</a></p>
+                <p>Carbon Footprint Amount: <%= alluserTasks[i].carbon %> kg </p> 
+            </div> 
+        <% } %>
+    </div>
+    
 <% } %>
 
 
-<a href="/profile">&larr; Back to profile</a>
+<a id="larr" href="/profile">&larr; Back to profile</a>
 
 

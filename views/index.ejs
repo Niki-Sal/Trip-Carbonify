@@ -1,6 +1,6 @@
 
 <% if (!currentUser) { %>
-    <p id="text-1"> JOIN US! Let's be gentle to the earth by living lesser carbon footprint  </p>
+    <p id="text-1"> JOIN! Let's be gentle to the earth by living lesser carbon footprint  </p>
 <% } else { %>
     <p id="text-2"> Hi <%= currentUser.name %>!</p>
 <% } %>
@@ -19,21 +19,25 @@
         <a href="categories/flight"><img src="../assets/flight.jpg" alt="flight" style="height: 200px; width:auto"></a>
     </div>   
 </div>
+<p id="text-1">EVENTS</p>
 <div id="photo-container">
     <img class="ad-photo" src="../assets/ad-1.jpeg" alt="change" >
     <img class="ad-photo" src="../assets/ad-2.jpeg" alt="change" >
     <img class="ad-photo" src="../assets/ad-3.jpeg" alt="change" >
+    <img class="ad-photo" src="../assets/ad-2.jpeg" alt="change" >
 </div>
 
 
-
 <% if (!currentUser) { %>
-    <p id="text-1"> JOIN US! to see other people's activities</p>
+    <p id="text-1"> JOIN! See other people's activities</p>
 <% } else { %>
     <div id="members-container">
-    <p id="text-2"> See activities of other people in community</p>
+    <p id="text-3"> See activities of other people in community</p>
     <% for (let i=0; i < users.length; i++){ %>
         <a  id= "members" href='/otherProfiles/<%=users[i].id %>'><%= users[i].name %></p>
     <% } %>
     </div>
 <% } %>
+
+
+

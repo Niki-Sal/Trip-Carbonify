@@ -1,8 +1,13 @@
+<div class= "form-container">
+    <form class= "sign-form" method= "POST" action="/profile/editAbout/<%=infoToUpdate.id %>?_method=PUT" enctype="multipart/form-data">
+        <label for="about">About Me</label>
 
-<form method= "POST" action="/profile/editAbout/<%=infoToUpdate.id %>?_method=PUT" enctype="multipart/form-data">
-    <label for="about">About Me</label>
-    <input type="text" name="about" value="about">
-    <label for="inputFile">My Profile Picture</label>
-    <input type="file" name="inputFile" id="inputFile" value ="inputFile">
-    <button type="submit">submit</button>
-<form>
+        <textarea  name="about" id="about" rows='5' cols='30'></textarea>
+
+        <label for="inputFile">Choose a Profile Picture</label>
+        <input type="file" name="inputFile" id="inputFile" value ="inputFile">
+
+        <button id="submit-button" type="submit">submit</button>
+    <form>
+
+</div>

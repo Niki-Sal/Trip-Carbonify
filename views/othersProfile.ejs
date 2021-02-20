@@ -1,17 +1,27 @@
-<h2>Profile Page</h2>
+<h2 id="text-1"><%= thisUser.name %>'s Profile</h2>
 
-<h3>Welcome to your PROFILE</h3>
 
-<p>Id: <%= thisUser.id %></p>
-<p>Name: <%= thisUser.name %></p>
+<!-- <p>Id: <%= thisUser.id %></p> -->
+<div class= "profile-container">
+    <div class=" profile-item">
+        <p><span class= "profile-title"> Name | </span> <%= thisUser.name %></p>
+    
+    
 
-<% if (thisUserinfo){ %>
-    <p>about me: <%= thisUserinfo.about %></p>
-    <img src="<%= thisUserinfo.photo %>" alt="user profile picture" style= " height: 200px; width: auto">
-   
-<% } else {%>
-    <p>No information about this user</p>
-<% } %>
+    <% if (thisUserinfo){ %>
+        
+            <p><span class= "profile-title"> About Me | </span> <%= thisUserinfo.about %></p>
+        </div>
+        <div class=" profile-item">
+            <img id="profile-image" src="<%= thisUserinfo.photo %>" alt="user profile picture" >
+        </div>
+       
+    <% } else {%>
+        <p>No information about this user</p>
+    <% } %>
+
+</div>
+
 
 
 
@@ -19,10 +29,17 @@
 <% for (let i=0; i < alluserTasks.length; i++ ){ %>
      <% totalScore += parseInt( alluserTasks[i].carbon) %> 
 <% } %>
-<p>YOUR TOTAL CARBONFOOTPRINT: <%= totalScore %></p> 
+<h2 id="text-1">Your Total CarbonFootprint: <%= totalScore %></h2> 
 
-<h2>Your search history</h2>
+<h5 style="text-align:center;">Search History</h5 >
 
 <% for (let i=0; i < alluserTasks.length; i++ ){ %>
-        <p> Task Title: <%= alluserTasks[i].title %> : <%= alluserTasks[i].carbon %> </p>   
+    <div id="history-container">
+        <div id ="history-title">
+            <p> <%= alluserTasks[i].title %>  </p>
+            <p>Carbon Footprint Amount: <%= alluserTasks[i].carbon %> kg </p> 
+        </div>
+        
+    </div>
+           
 <% } %>

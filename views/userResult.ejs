@@ -1,10 +1,13 @@
-<p>this is result page for our dear user!</p>
+<div class="result-box">
+    <p><span class= "result-title">Task Name |</span>  <%= searchedTask.title %></p>
+    <p><span class= "result-title">Carbon Footprint |</span> <%= searchedTask.carbon %></p>
+</div> 
+<div class="result-box">
+    <p> Details you enter:</p>
+    <p> <span class= "result-title"> Your vehicle | </span> <%=searchedTask.detail.mode %></p>
+    <p> <span class= "result-title">Country | </span> <%=searchedTask.detail.country %></p>
+    <p> <span class= "result-title">Amount |</span> <%=searchedTask.detail.activity %> <%=searchedTask.detail.activityType %></p>  
+</div>  
+    
 
-<p> your task name is: <%= searchedTask.title %></p>
-<p> your carbon footprint is: <%= searchedTask.carbon %></p>
-<p> your task category is: <%= searchedCat.name %></p>
-<p> task details</p>
-<p> activity: <%=searchedTask.detail.activity %></p>
-<p> activityType: <%=searchedTask.detail.activityType %></p>
-<p> country: <%=searchedTask.detail.country %></p>
-<p> mode: <%=searchedTask.detail.mode %></p>
+<a id="larr" href="/profile">&larr; Back to profile</a>
