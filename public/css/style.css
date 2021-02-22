@@ -216,11 +216,12 @@ h1 {
   border-radius: 10px;
 }
 .sign-form{
-  margin: 5px 100px 10px 100px;
+  margin: 5px 60px 10px 60px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+
 #submit-button{
   margin: 30px;
 }

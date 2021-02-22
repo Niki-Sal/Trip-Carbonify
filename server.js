@@ -203,6 +203,13 @@ app.get('/profile/editTask/:idx', isLoggedIn, async(req, res)=>{
     console.log(err)
   }  
 })
+//Intentional 404 page errors for footer links
+app.get('/aboutus', (req,res)=>{
+  res.render('404')
+})
+app.get('/contactus', (req,res)=>{
+  res.render('404')
+})
 
 //POST more info about user in user profile
 app.post('/about' , uploads.single('inputFile'), isLoggedIn, async(req, res)=>{
@@ -298,6 +305,7 @@ app.delete('/profile/:idx', isLoggedIn, async( req, res)=>{
     console.log(next)
   }  
 })
+
 
 
 //////////////////////////////////////////
