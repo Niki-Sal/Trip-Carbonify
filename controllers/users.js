@@ -101,7 +101,7 @@ router.get('/result/:category/:title',isLoggedIn, async(req, res)=>{
 
 
 
-//POST information and add to database form loggin user
+//POST information and add to database for loggin user
 router.post('/result/:category',isLoggedIn, async(req, res)=>{
     try{
         let categoryName = req.params.category
@@ -118,7 +118,7 @@ router.post('/result/:category',isLoggedIn, async(req, res)=>{
         console.log(response.data)
         let result = response.data
         let resultNumber = parseInt(result.carbonFootprint)
-        ///how to find current user?????????
+        ///how to find current user
         const { id, name, email } = req.user.get(); 
         const user = await db.user.findOne({
             where:{
