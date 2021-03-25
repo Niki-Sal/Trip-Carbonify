@@ -1,54 +1,123 @@
-<h3 id='text-1'>DRIVING</h3>
 <div id="page-container">
-    <div id="form-container">
-    <% if(!currentUser) { %>
-        <form action="/result" method= "POST">  
-    <% } else { %>
-        <form action="/users/result/<%=category %>" method= "POST">
-    <% } %> 
-        <div class="form-items">
-            <label for="title">Activity Title</label>
-            <input type="text" id="title" name="title">
-        </div>
-        <div class="form-items">
-            <label for="country">Country(usa: United States, gbr: United Kingdom) </label>
-            <input type="text" id="country" name="country">
-        </div>
-        <div class="form-items">
-            <input type="radio" id="dieselCar" name="mode" value="dieselCar">
-            <label for="dieselCar">Diesel Car</label>
-            <input type="radio" id="petrolCar" name="mode" value="petrolCar">
-            <label for="petrolCar">Petrol Car</label>
-            <input type="radio" id="anyCar" name="mode" value="anyCar">
-            <label for="anyCar">Any Car</label>
-            <input type="radio" id="motorbike" name="mode" value="motorbike">
-            <label for="motorbike">Motorbike</label>
-        </div>
-        <div class="form-items">
-            <label for="amount">Amount</label>
-            <input type="text" id="amount" name="activity">
-        
-            <input type="radio" id="miles" name="activityType" value="miles">
-            <label for="miles">miles</label>
-            <input type="radio" id="fuel" name="activityType" value="fuel">
-            <label for="fuel">fuel</label>
-
-            <p class="form-note">Choose fuel type if you have chosen fuel</p>
-            <input type="radio" id="diesel" name="fuelType" value="diesel">
-            <label for="diesel">diesel</label>
-            <input type="radio" id="aviationGasoline" name="fuelType" value="aviationGasoline">
-            <label for="aviationGasoline">aviationGasoline</label>
-            <input type="radio" id="jetFuel" name="fuelType" value="jetFuel">
-            <label for="jetFuel">jetFuel</label>
-
+    <section class="Form my-4 mx-5">
+        <div class="container">
+            <div class="row myrow">
+                <div class="col-lg-5">
+                    <div class="img-con">
+                        <img class="img-form" src="../../assets/drivingpage.jpg" class="img-fluid" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-7 px-5 pt-5">
+                    <% if(!currentUser) { %>
+                        <form action="/result" method= "POST">  
+                    <% } else { %>
+                        <form action="/users/result/<%=category %>" method= "POST">
+                    <% } %> 
+                        <div class="form-row">
+                            <div class="col-lg-10">
+                                <h3 id='text-1'>DRIVING</h3>
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="col-lg-10">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for="title">Activity Title</label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" id="title" name="title" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="col-lg-10">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for="country">Country</label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <select type="text" id="country" name="country" class="form-control">
+                                            <option>usa</option>
+                                            <option>gbr</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="col-lg-10">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <input type="radio" id="dieselCar" name="mode" value="dieselCar">
+                                        <label for="dieselCar">Diesel Car</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="radio" id="petrolCar" name="mode" value="petrolCar">
+                                        <label for="petrolCar">Petrol Car</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="radio" id="anyCar" name="mode" value="anyCar">
+                                        <label for="anyCar">Any Car</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="radio" id="motorbike" name="mode" value="motorbike">
+                                        <label for="motorbike">Motorbike</label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="col-lg-10">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label for="amount">Amount</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="text" id="amount" name="activity" class="form-control">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="radio" id="miles" name="activityType" value="miles">
+                                        <label for="miles">miles</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="radio" id="fuel" name="activityType" value="fuel">
+                                        <label for="fuel">fuel</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="col-lg-10">
+                                <label for="diesel">If you chosen fuel above, choose fuel type</label>
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="col-lg-10">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <input type="radio" id="diesel" name="fuelType" value="diesel">
+                                        <label for="diesel">Diesel</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="radio" id="aviationGasoline" name="fuelType" value="aviationGasoline">
+                                        <label for="aviationGasoline">Aviation Gasoline</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="radio" id="jetFuel" name="fuelType" value="jetFuel">
+                                        <label for="jetFuel">Jet Fuel</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="col-lg-10">
+                                <button type="submit" class="btn1 mt-3 mb-5">Calculate</button>
+                            </div>
+                        </div>
+                </div>  
             </div>
-            <div class="form-items">
-                <input type="submit">
-            </div>
-            
-        </form>
-    </div>
-    <div>
-        <img class="form-image" src="../../assets/drivingpage.jpg" alt="image of PT">
-    </div>
+        </div>
+    </section>
 </div>

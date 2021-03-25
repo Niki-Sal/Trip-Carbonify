@@ -3,46 +3,34 @@ const express = require('express');
 const axios = require ('axios')
 const db = require('./models');
 const layouts = require('express-ejs-layouts');
-//session
 const session = require('express-session');
-//Passport
 const passport = require('./config/ppConfig');
-//Flash
 const flash = require('connect-flash');
-const methodOverride = require("method-override")
+const methodOverride = require("method-override");
 const app = express();
-app.set('view engine', 'ejs');
 
-// Session 
+app.set('view engine', 'ejs');
 const SECRET_SESSION = process.env.SECRET_SESSION;
 const isLoggedIn = require('./middleware/isLoggedIn');
-//Multer & Cloudinary
 const multer = require('multer')
 const cloudinary = require('cloudinary')
 const uploads = multer({ dest: './uploads'})
-
-
-//Why do I need that? do I need one for categories?
 const router = require('./controllers/users');
 
-// MIDDLEWARE
+// Middlewares
 app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(layouts);
 app.use(methodOverride("_method"))
-
-// Session Middleware
 const sessionObject = {
   secret: SECRET_SESSION,
   resave: false,
   saveUninitialized: true
 }
 app.use(session(sessionObject));
-// Passport Middleware
-app.use(passport.initialize()); // Initialize passport
-app.use(passport.session()); // Add a session
-// Flash Middleware
+app.use(passport.initialize());
+app.use(passport.session()); 
 app.use(flash());
 app.use((req, res, next) => {
   console.log(res.locals);
@@ -57,11 +45,11 @@ app.use('/users', require('./controllers/users'));
 app.use('/categories', require('./controllers/categories'));
 
 
-//////////////////////////////////////////////////////////////
 //GET homepage-index
 app.get('/', (req, res) => {
     db.user.findAll().then(users => res.render('index', {users}))  
 })
+
 //GET other people's profile
 app.get('/otherProfiles/:idx', async(req, res) => { 
   try{
@@ -88,9 +76,12 @@ app.get('/otherProfiles/:idx', async(req, res) => {
     })
   res.render('othersProfile', { thisUser, alluserTasks, thisUserinfo})
   }catch (err){
+    console.log('******this is error*******')
     console.log(err)
   }
-});
+})
+
+//GET about page
 app.get('/about' ,isLoggedIn, async(req, res)=>{
   try{
     const { id, name, email } = req.user.get();
@@ -114,10 +105,8 @@ app.post('/result', (req, res)=>{
   let fuelType = req.body.fuelType
 
   let APIResponse = `https://api.triptocarbon.xyz/v1/footprint?activity=${activity}&activityType=${activityType}&fuelType=${fuelType}&country=${country}&mode=${mode}`
-  console.log(APIResponse)
   axios.get(APIResponse)
   .then(function(response){
-      console.log(response.data)
       let result = response.data
       res.render('result', {result})
   })
@@ -128,7 +117,6 @@ app.post('/result', (req, res)=>{
 })
 
 //GET users profile
-
 app.get('/profile', isLoggedIn, async(req, res) => { 
   try{
     const { id, name, email } = req.user.get();
@@ -167,9 +155,11 @@ app.get('/about' ,isLoggedIn, async(req, res)=>{
       })
       res.render('about', {user})
   } catch(err){
+    console.log('******this is error*******')
     console.log(err)
   }
 })
+
 //GET a page for editing userinfo
 app.get('/profile/editAbout/:idx' , isLoggedIn, async(req, res) =>{
   try{
@@ -186,6 +176,7 @@ app.get('/profile/editAbout/:idx' , isLoggedIn, async(req, res) =>{
     console.log(err)
   } 
 })
+
 //GET a page for editing activity titles
 app.get('/profile/editTask/:idx', isLoggedIn, async(req, res)=>{
   try{
@@ -197,12 +188,13 @@ app.get('/profile/editTask/:idx', isLoggedIn, async(req, res)=>{
     const tasktoUpdate = await db.task.findOne({
       where:{id: idx}
     }) 
-    console.log(tasktoUpdate)
     res.render ('edit',{tasktoUpdate})
   }catch (err){
+    console.log('******this is error*******')
     console.log(err)
   }  
 })
+
 //Intentional 404 page errors for footer links
 app.get('/aboutus', (req,res)=>{
   res.render('404')
@@ -219,19 +211,12 @@ app.post('/about' , uploads.single('inputFile'), isLoggedIn, async(req, res)=>{
       const result = await cloudinary.uploader.upload(image)
       const imageUrl = await result.url
       const { id, name, email } = await req.user.get();
-      console.log(id)
-      console.log(name)
-      console.log(email)
-      console.log(about)
-      console.log(result)
-      console.log(result.url)
   
       const userinfoObject = {
           photo: imageUrl,
           about: about,
           userId: id
       }
-      console.log(userinfoObject)
       const UserInfoPromise = await db.userinfo.create(
          userinfoObject,
          { where: {userId: id} }
@@ -239,9 +224,11 @@ app.post('/about' , uploads.single('inputFile'), isLoggedIn, async(req, res)=>{
       
       res.redirect ('/profile')
   }catch (err){
+    console.log('******this is error*******')
     console.log(err)
   }
 })
+
 //EDIT user moreinfo through '/profile/aboutedit'
 app.put('/profile/editAbout/:idx' ,uploads.single('inputFile'), isLoggedIn, async(req, res, next)=>{
   try{
@@ -265,6 +252,7 @@ app.put('/profile/editAbout/:idx' ,uploads.single('inputFile'), isLoggedIn, asyn
   )
   res.redirect('/profile')
   }catch (next){
+    console.log('******this is error*******')
     console.log(next)
   }  
 })
@@ -284,6 +272,7 @@ app.put('/profile/editTask/:idx', isLoggedIn, async(req, res, next)=>{
   )
   res.redirect('/profile')
   }catch (next){
+    console.log('******this is error*******')
     console.log(next)
   }  
 })
@@ -302,13 +291,11 @@ app.delete('/profile/:idx', isLoggedIn, async( req, res)=>{
     })
   res.redirect('/profile')
   }catch (next){
+    console.log('******this is error*******')
     console.log(next)
   }  
 })
 
-
-
-//////////////////////////////////////////
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
   console.log(`Running on port ${PORT}...`);

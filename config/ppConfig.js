@@ -18,7 +18,7 @@ passport.deserializeUser((id, cb) => {
         console.log('User is null...');
     })
     .catch(error => {
-        console.log('Yo... There is an error');
+        console.log('There is an error');
         console.log(error);
     })
 })
@@ -38,7 +38,7 @@ passport.use(new LocalStrategy({
         }
     })
     .catch(error => {
-        console.log('**************************** Error');
+        console.log('************ Error ****************');
         console.log(error);
     })
 }));

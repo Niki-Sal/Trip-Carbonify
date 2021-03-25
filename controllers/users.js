@@ -4,38 +4,27 @@ const axios = require ('axios')
 const router = express.Router()
 const db = require('../models')
 const layouts = require('express-ejs-layouts');
-//session
 const session = require('express-session');
-//Passport
 const passport = require('../config/ppConfig');
-//Flash
 const flash = require('connect-flash');
 const methodOverride = require("method-override")
-// //what is it?//
-// const { deserializeUser } = require('passport')
-
-// Session 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 const isLoggedIn = require('../middleware/isLoggedIn');
-// MIDDLEWARE
+
+// Middlewares
 router.use(require('morgan')('dev'));
 router.use(express.urlencoded({ extended: false }));
 router.use(express.static(__dirname + '/public'));
 router.use(layouts);
 router.use(methodOverride("_method"))
-
-// Session Middleware
 const sessionObject = {
     secret: SECRET_SESSION,
     resave: false,
     saveUninitialized: true
   }
 router.use(session(sessionObject));
-
-// Passport Middleware
-router.use(passport.initialize()); // Initialize passport
-router.use(passport.session()); // Add a session
-// Flash Middleware
+router.use(passport.initialize());
+router.use(passport.session());
 router.use(flash());
 router.use((req, res, next) => {
   console.log(res.locals);
@@ -43,7 +32,9 @@ router.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
-//////////////////////////////////////////////////////////////////
+
+
+
 //GET home page for logged in user
 router.get('/', (req, res) => {
     res.render('index');
@@ -66,6 +57,7 @@ router.get('/category/:catName',isLoggedIn, async(req, res)=>{
         res.render('categories/show',{category, alluserTasks})
 
     } catch (err){
+        console.log('******this is error*******')
         console.log(err)
     } 
 })
@@ -94,7 +86,7 @@ router.get('/result/:category/:title',isLoggedIn, async(req, res)=>{
         
         res.render('userResult',{searchedCat, searchedTask})
     } catch(error){
-        console.log('**this is error**')
+        console.log('******this is error*******')
         console.log(error)
     }
 })
@@ -113,12 +105,10 @@ router.post('/result/:category',isLoggedIn, async(req, res)=>{
         let fuelType = req.body.fuelType
 
         let APIResponse = `https://api.triptocarbon.xyz/v1/footprint?activity=${activity}&activityType=${activityType}&fuelType=${fuelType}&country=${country}&mode=${mode}`
-        console.log(APIResponse)
         let response = await axios.get(APIResponse)
-        console.log(response.data)
         let result = response.data
         let resultNumber = parseInt(result.carbonFootprint)
-        ///how to find current user
+        ///find current user
         const { id, name, email } = req.user.get(); 
         const user = await db.user.findOne({
             where:{

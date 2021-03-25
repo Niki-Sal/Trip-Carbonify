@@ -15,7 +15,10 @@ nav ul li a{
   color: white;
 }
 nav ul li a:hover{
-  color: green;
+  color: rgba(169, 201, 0);
+}
+nav{
+  background-color: rgb(141, 129, 129); 
 }
 footer ul li {
   text-decoration: none;
@@ -27,11 +30,14 @@ footer ul li a{
   color: white;
 }
 footer ul li a:hover{
-  color: green;
+  color: rgba(169, 201, 0);
 }
-nav, footer{
+
+footer{
   background-color: rgb(141, 129, 129); 
+  height: 70px;
 }
+
 
 /* index */
 h1 {
@@ -118,6 +124,7 @@ h1 {
 }
 .ad-photo{ 
   height: 300px;
+  margin: 0px auto;
   
 }
 @media screen and (max-width: 800px){
@@ -133,37 +140,55 @@ h1 {
 
 /* driving-pt-flight views */
 #page-container{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  background-color: white;
 }
-#form-container{
-  background-color: rgb(217, 218, 216);
-  padding: 30px;
-  padding-right: 200px;
+
+.myrow{
+  background: white;
+  border-radius: 30px;
+  box-shadow: 12px 12px 22px gray;
 }
-.form-items{
-  margin: 20px;
+.img-con{
+  height: 500px;
 }
-.form-note{
-  margin-top: 20px;
+.img-form{
+  border-radius: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 100%;
+  max-height: 100%;
 }
-.form-image{
-  height: 410px;;
-  width: auto;
+.btn1{
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.btn1:hover{
+  background: white;
+  border: 1px solid;
+  color: black;
 }
 
 /* user profile */
-.profile-container{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-.profile-item{
+.con-center-1{
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
+  text-align: flex-start;
+  padding: 50px;
 }
+.con-center-2{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+}
+
 #profile-image{
   height: 200px;
   width: 200px;
@@ -185,46 +210,38 @@ h1 {
   color: green;
 }
 #history-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   background-color: gray;
   border: 5px solid white;
   border-radius: 20px;
-  margin: 0px 300px;
 }
-#history-title{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 20px;
+
+.btn2{
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 100%;
+  background-color: rgba(169, 201, 0);
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
 }
-#history-category{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+.btn2:hover{
+  background: white;
+  border: 1px solid;
+  color: black;
 }
 .green{
   color: rgba(169, 201, 0);
 }
 
 /* forms */
-.form-container{
+.my-form-container{
   background-color: gray;
-  margin: 20px 500px 40px 500px;
   border: 2px solid gray;
   border-radius: 10px;
-}
-.sign-form{
-  margin: 5px 60px 10px 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+ 
 }
 
-#submit-button{
-  margin: 30px;
-}
 
 /* edit */
 .edit-form{

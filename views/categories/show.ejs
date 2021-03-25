@@ -2,9 +2,9 @@
 
     
 <% for (let i=0; i<alluserTasks.length; i++) { %>
-    <div id="history-container">
+    <div class="container">
         <% if (alluserTasks[i].categories[0].name === category.name){ %>
-            <div id ="history-title">
+            <div class="row result-box">
                 <p><%= alluserTasks[i].title %> | <a class="green" href='/profile/editTask/<%= alluserTasks[i].id %>'>Edit</a></p>
                 <p>Carbon Footprint Amount: <%= alluserTasks[i].carbon %> kg | <%= Math.floor(parseInt(alluserTasks[i].carbon)*(2.2)) %> lbs</p> 
             </div> 

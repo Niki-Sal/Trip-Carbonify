@@ -1,30 +1,26 @@
 const express = require('express');
 const passport = require('../config/ppConfig');
 const router = express.Router();
-
-// import database
 const db = require('../models');
 
 router.get('/signup', (req, res) => {
-  res.render('auth/signup'); // this is a form
+  res.render('auth/signup');
 });
 
 router.get('/login', (req, res) => {
-  res.render('auth/login'); // this is a form
+  res.render('auth/login');
 });
 
 router.get('/logout', (req, res) => {
-  req.logOut(); // logs the user out of the session
+  req.logOut(); 
   req.flash('success', 'Logging out, See you Later!');
   res.redirect('/');
 });
 
 
-// What routes do we need (post routes)
+
 router.post('/signup', (req, res) => {
-  // we now have access to the user info (req.body);
-  // console.log(req.body);
-  const { email, name, password } = req.body; // goes and us access to whatever key/value inside of the object (req.body)
+  const { email, name, password } = req.body;
   db.user.findOrCreate({
     defaults: { name, password },
     where: { email
@@ -33,9 +29,6 @@ router.post('/signup', (req, res) => {
   })
   .then(([user, created]) => {
     if (created) {
-      // if created, success and we will redirect back to / page
-      console.log(`${user.name} was created....`);
-      // flash messages
       const successObject = {
         successRedirect: '/',
         successFlash: `Welcome ${user.name}. Account was created`
@@ -49,9 +42,9 @@ router.post('/signup', (req, res) => {
     }
   })
   .catch(error => {
-    console.log('**************Error');
+    console.log('**************SignUpError******************');
     console.log(error);
-    req.flash('error', 'Either email or password is incorrect. Please try again.');
+    req.flash('error', 'Email or Password is incorrect. Please try again.');
     res.redirect('/auth/signup');
   });
 });
@@ -60,7 +53,7 @@ router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/auth/login',
   successFlash: 'Welcome back ...',
-  failureFlash: 'Either email or password is incorrect' 
+  failureFlash: 'Email or password is incorrect' 
 }));
 
 

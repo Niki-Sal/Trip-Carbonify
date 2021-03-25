@@ -1,13 +1,18 @@
-<div class="result-box">
-    <p><span class= "result-title">Task Name |</span>  <%= searchedTask.title %></p>
-    <p><span class= "result-title">Carbon Footprint |</span> <%= searchedTask.carbon %> kg | <%= Math.floor(parseInt(searchedTask.carbon)*2.2) %> lbs </p>
-</div> 
-<div class="result-box">
-    <p> Details you entered:</p>
-    <p> <span class= "result-title"> Your vehicle | </span> <%=searchedTask.detail.mode %></p>
-    <p> <span class= "result-title">Country | </span> <%=searchedTask.detail.country %></p>
-    <p> <span class= "result-title">Amount |</span> <%=searchedTask.detail.activity %> <%=searchedTask.detail.activityType %></p>  
-</div>  
-    
+<div class="container">
+    <div class="row result-box">
+        <p><span class= "result-title">Task Name |</span>  <%= searchedTask.title %></p>
+        <p><span class= "result-title">Carbon Footprint |</span> <%= searchedTask.carbon %> kg | <%= Math.floor(parseInt(searchedTask.carbon)*2.2) %> lbs </p>
+    </div>
+    <div class="row result-box">
+        <p> Details you entered:</p>
+        <p> <span class= "result-title"> Your vehicle | </span> <%=searchedTask.detail.mode %></p>
+        <p> <span class= "result-title">Country | </span> <%=searchedTask.detail.country %></p>
+        <p> <span class= "result-title">Amount |</span> <%=searchedTask.detail.activity %> <%=searchedTask.detail.activityType %></p>  
+    </div>
+    <div class="row">
+        <a id="larr" href="/profile">&larr; Back to profile</a>
+    </div>
+</div>
 
-<a id="larr" href="/profile">&larr; Back to profile</a>
+
+    
