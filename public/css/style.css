@@ -18,7 +18,7 @@ nav ul li a:hover{
   color: rgba(169, 201, 0);
 }
 nav{
-  background-color: rgb(141, 129, 129); 
+  background-color: rgb(105, 92, 76); 
 }
 footer ul li {
   text-decoration: none;
@@ -34,7 +34,7 @@ footer ul li a:hover{
 }
 
 footer{
-  background-color: rgb(141, 129, 129); 
+  background-color: rgba(169, 201, 0); 
   height: 70px;
 }
 
@@ -116,17 +116,16 @@ h1 {
   }
 }
 #photo-container {
-  background-color:  rgb(141, 129, 129);
+  background-color:  rgb(105, 92, 76);
   position: relative;
   display:inline-block;
   text-align: center;
-  width: 100%
+  /* width: 100%; */
 }
 .ad-photo{ 
-  height: 300px;
-  margin: 0px auto;
-  
+  height: 250px;
 }
+
 @media screen and (max-width: 800px){
   #photo-container {
     margin: 0;
